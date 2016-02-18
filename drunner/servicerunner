@@ -172,6 +172,11 @@ function main {
             fi
             dockerrun npm run-script debug
             ;;
+         
+         watch)
+            COMMANDOPTS=("-it" "-p" "1337:1337" "-p" "5858:5858")
+            dockerrun npm run-script debug
+            ;;
             
          #--- unrecognised commands
 
