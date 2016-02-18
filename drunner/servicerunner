@@ -166,7 +166,7 @@ function main {
             ;;
                     
          debug)
-            COMMANDOPTS=("-it" "-p" "1337:1337" "-p" "5858:5858" "-v" "$2:/app/src")
+            COMMANDOPTS=("-it" "-p" "1337:1337" "-p" "5858:5858" "-v" "$(realpath $2):/app/src")
             if [ ! -e "$2" ]; then
                die "Path not found at $2"
             fi
