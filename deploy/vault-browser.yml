@@ -1,0 +1,5 @@
+---
+- hosts: vault-browser
+  tasks:
+    - name: Update vault-browser service
+      shell: /home/admin/bin/drunner update vault-browser

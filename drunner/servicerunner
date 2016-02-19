@@ -119,6 +119,7 @@ function main {
                      
          uninstall)
             serviceStop
+            serviceDelete
             ;;
                      
          backupstart)
@@ -145,6 +146,7 @@ function main {
          
          updatestart)
             serviceStop
+            serviceDelete
             ;;
 
          updateend)
