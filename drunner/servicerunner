@@ -174,8 +174,8 @@ function main {
             ;;
          
          watch)
-            COMMANDOPTS=("-it" "-p" "1337:1337" "-p" "5858:5858")
-            dockerrun npm run-script debug
+            COMMANDOPTS=("-it" "-p" "1337:1337" "-p" "5858:5858" "-v" "$(realpath $2):/app/src")
+            dockerrun nodemon --watch api --watch config -L
             ;;
             
          #--- unrecognised commands
