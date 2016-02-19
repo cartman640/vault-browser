@@ -75,6 +75,7 @@ module.exports = function(grunt) {
 	}
 
 	// Run task functions to configure Grunt.
+  require('grunt-loadnpmtasks').extend(grunt);
 	invokeConfigFn(taskConfigurations);
 	invokeConfigFn(registerDefinitions);
 

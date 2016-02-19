@@ -170,7 +170,7 @@ function main {
             if [ ! -e "$2" ]; then
                die "Path not found at $2"
             fi
-            dockerrun npm run-script debug
+            dockerrun nodemon --debug --watch api --watch config -L
             ;;
          
          watch)
