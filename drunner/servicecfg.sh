@@ -8,7 +8,7 @@
 # e.g.
 # VOLUMES=("/config" "/data")
 
-VOLUMES=("/config" "/app/src/.tmp")
+VOLUMES=("/config")
 
 # Additional containers used by the service. Only set when we have
 # multiple containers (e.g. database container...)

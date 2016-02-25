@@ -1,17 +1,12 @@
-FROM node:4
+FROM adinstruments/node
 MAINTAINER cartman640
-
-# RUN addgroup --gid 22022 dgroup
-# RUN useradd --uid 22022 -g dgroup druser -d /home/druser -m
-
-RUN addgroup --gid 1000 dgroup
-RUN useradd --uid 1000 -g dgroup druser -d /home/druser -m
 
 RUN npm install -g nodemon
 
-RUN mkdir -p /app/src/.tmp && mkdir -p /app/src/node_modules && chown -R druser:dgroup /app
+RUN mkdir -p /app/src/.tmp && mkdir -p /app/src/node_modules && chown -R druser:drgroup /app
+
+EXPOSE 1337
 WORKDIR /app/src
-USER druser
 
 ADD src/package.json /app/src/package.json
 
@@ -20,11 +15,11 @@ RUN npm install
 COPY ["./drunner", "/drunner"]
 COPY src /app/src
 
-VOLUME /config
-VOLUME /app/src
-VOLUME /app/src/.tmp
-VOLUME /app/src/node_modules
+RUN chown druser:drgroup /app/src/*
+RUN chown -R druser:drgroup /app/src/.tmp/
+USER druser
 
-EXPOSE 1337
+# VOLUME ["/config", "/app/src", "/app/src/.tmp", "/app/src/node_modules"]
+VOLUME ["/config", "/app/src", "/app/src/node_modules"]
 
 CMD ["npm", "start"]
