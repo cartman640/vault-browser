@@ -59,7 +59,7 @@ EOF
 
 function dockerrun {
    local RVAL=0
-   docker run "${COMMANDOPTS[@]}" --name="${SERVICENAME}-${COMMAND}" --user="1000:1000" -h "${HOSTNAME}" "${DOCKEROPTS[@]}" "${IMAGENAME}" "$@"
+   docker run "${COMMANDOPTS[@]}" --name="${SERVICENAME}-${COMMAND}" -h "${HOSTNAME}" "${DOCKEROPTS[@]}" "${IMAGENAME}" "$@"
    RVAL=$?
    docker rm "${SERVICENAME}-${COMMAND}" >/dev/null
    [ $RVAL -eq 0 ] || die "${SERVICENAME} ${COMMAND} failed."
@@ -171,7 +171,7 @@ function main {
             ;;
                     
          debug)
-            COMMANDOPTS=("-it" "--user" "$(id -u):$(id -g)" "-p" "1337:1337" "-p" "5858:5858" "-v" "$(realpath $2):/app/src")
+            COMMANDOPTS=("-it" "--user=\"$(id -u):$(id -g)\"" "-p" "1337:1337" "-p" "5858:5858" "-v" "$(realpath $2):/app/src" "-e" "HOME=/app/src/.tmp")
             if [ ! -e "$2" ]; then
                die "Path not found at $2"
             fi
@@ -179,9 +179,11 @@ function main {
             ;;
          
          watch)
-            COMMANDOPTS=("-it" "-p" "1337:1337" "-p" "5858:5858" "-v" "$(realpath $2):/app/src")
-            # dockerrun nodemon --watch api --watch config -L
-            dockerrun npm start
+            COMMANDOPTS=("-it" "--user=\"$(id -u):$(id -g)\"" "-p" "1337:1337" "-v" "$(realpath $2):/app/src" "-e" "HOME=/app/src/.tmp")
+            if [ ! -e "$2" ]; then
+               die "Path not found at $2"
+            fi
+            dockerrun nodemon --watch api --watch config -L
             ;;
             
          #--- unrecognised commands
