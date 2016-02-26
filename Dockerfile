@@ -19,6 +19,6 @@ RUN chown druser:drgroup /app/src/*
 RUN chown -R druser:drgroup /app/src/.tmp/
 USER druser
 
-VOLUME ["/config", "/app/src", "/app/src/node_modules"]
+VOLUME ["/config"]
 
 CMD ["npm", "start"]

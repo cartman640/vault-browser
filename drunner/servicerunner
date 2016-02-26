@@ -171,7 +171,7 @@ function main {
             ;;
                     
          debug)
-            COMMANDOPTS=("-it" "--user=\"$(id -u):$(id -g)\"" "-p" "1337:1337" "-p" "5858:5858" "-v" "$(realpath $2):/app/src" "-e" "HOME=/app/src/.tmp")
+            COMMANDOPTS=("-it" "--user=\"$(id -u):$(id -g)\"" "-p" "1337:1337" "-p" "5858:5858" "-v" "$(realpath $2):/app/src" "-v" "${SERVICENAME}-node-modules:/app/src/node_modules" "-e" "HOME=/app/src/.tmp")
             if [ ! -e "$2" ]; then
                die "Path not found at $2"
             fi
@@ -179,7 +179,7 @@ function main {
             ;;
          
          watch)
-            COMMANDOPTS=("-it" "--user=\"$(id -u):$(id -g)\"" "-p" "1337:1337" "-v" "$(realpath $2):/app/src" "-e" "HOME=/app/src/.tmp")
+            COMMANDOPTS=("-it" "--user=\"$(id -u):$(id -g)\"" "-p" "1337:1337" "-v" "$(realpath $2):/app/src" "-v" "${SERVICENAME}-node-modules:/app/src/node_modules" "-e" "HOME=/app/src/.tmp")
             if [ ! -e "$2" ]; then
                die "Path not found at $2"
             fi
