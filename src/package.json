@@ -27,6 +27,7 @@
   },
   "scripts": {
     "debug": "node debug app.js",
+    "prestart": "node drunner.js setenv",
     "start": "node app.js"
   },
   "main": "app.js",

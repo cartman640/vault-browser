@@ -8,6 +8,7 @@
 module.exports = {
 	index: function(req, res){
     console.log('hello, this is neat');
+    console.log('VAULT_ADDR: ' + process.env.VAULT_ADDR);
     return res.view('test');
   }
 };

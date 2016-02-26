@@ -186,6 +186,18 @@ function main {
             dockerrun nodemon --watch api --watch config -L
             ;;
             
+         config)
+            COMMANDOPTS=("-it" "-v" "$(realpath $2):/app/src" "-v" "${SERVICENAME}-node-modules:/app/src/node_modules")
+            if [ ! -e "$2" ]; then
+               die "Path not found at $2"
+            fi
+            if [ -e "$2" ]; then
+               shift
+            fi
+            shift
+            dockerrun node drunner.js "$@"
+            ;;
+            
          #--- unrecognised commands
 
          *)
